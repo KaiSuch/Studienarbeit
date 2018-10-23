@@ -1,13 +1,16 @@
 import xlrd
-import contest_scraper_no_class as contest
+import contest_scraper as contest
+import re
+import json
+from user_scraper import author
 
 
 
 #------------------------ Setup ----------------------------
 
-n = 29 #number of contests you want to crawl -> change order etc. in xlsx sheet
+n = 64 #number of contests you want to crawl -> change order etc. in xlsx sheet
 
-NamedesDokumentes = "contest_list.xlsx"
+NamedesDokumentes = "contest_list_update.xlsx"
 NamedesTabellenblattes = "Tabelle2"
 
 
@@ -19,7 +22,7 @@ worksheet = workbook.sheet_by_name(NamedesTabellenblattes)
 
 
 def read_contest(Y2):
-    for x in range(1, Y2):
+    for x in range(2, Y2):
         contest_page = worksheet.cell(x, 1).value
         name = contest.project_classification(contest_page)
         

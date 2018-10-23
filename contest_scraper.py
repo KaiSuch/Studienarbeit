@@ -1,20 +1,11 @@
 from project_scraper import project
+import Selenium_login as sl
 
+driver = sl.site_login_driver()
 
-
-#------------ csv setup ----------------
-
-
-# csv setup
-#csv_file = open('Data_test.csv', 'a+') # create or open csv
-#csv_writer = csv.writer(csv_file) # define the csv writer
-#csv_writer.writerow(['user name', 'user page', 'user projects', 'user follower']) # create headers
-
-
-
-    # NOT finished!
+# find and save the projects
 def find_projects(status, winorloose, contest_page):
-    f = open("data_to_analyse2.txt", "a+")
+    f = open("Validation_data.txt", "a+")
     project_list = []
     for i in status.find_all('div', class_='card-body'):
         try:
@@ -42,15 +33,33 @@ def find_projects(status, winorloose, contest_page):
                     pro_1.user_page = 'not available'
                     print("No user page available")
             pro_1.comments = pro_1.project_number_of_comments_function()
-            pro_1.difficulty = pro_1.project_difficulty_function()
-            pro_1.images = pro_1.project_number_of_images_function()
-            pro_1.instruction = pro_1.project_instruction_function()
+            try:
+                pro_1.difficulty = pro_1.project_difficulty_function()
+                pro_1.images = pro_1.project_number_of_images_function()
+                pro_1.instruction = pro_1.project_instruction_function()
+                pro_1.words = pro_1.project_number_of_words_function()
+                if pro_1.words == "None":
+                    raise Exception
+            except:
+                # Selenium section -------------------------------------------------------------
+                print("Project scraping error, starting selenium")
+                try:
+                    web_page = sl.selenium_load_page(pro_1.project_page,driver)
+                except:
+                    print("Selenium: Login error")
+                try:
+                    pro_1.difficulty = sl.project_difficulty_function2(web_page)
+                except:
+                    pro_1.difficulty = "None"
+                pro_1.images = sl.project_number_of_images_function(web_page)
+                pro_1.instruction = sl.project_instruction_function(web_page)
+                pro_1.words = sl.project_number_of_words_function(web_page)
             pro_1.views = pro_1.project_number_of_views_function()
             pro_1.likes = pro_1.project_number_of_likes_function()
             #pro_1.project_name = pro_1.user_name_function()
             pro_1.publish_date = pro_1.project_publish_date_function()
             pro_1.winorloose = winorloose
-            pro_1.words = pro_1.project_number_of_words_function()
+
             print("###########################")
             print(pro_1.winorloose, contest_page, pro_1.project_page, pro_1.views, pro_1.difficulty, pro_1.likes, pro_1.comments, pro_1.words, pro_1.images, pro_1.instruction, pro_1.user_page, pro_1.user_follower, pro_1.user_following, pro_1.user_number_of_projects)
            # print(pro_1)
@@ -93,11 +102,9 @@ def project_scraper(contest_page):
             winnerorlooser = a.find('div', class_='thumb-list')
             find_projects(winnerorlooser, '1')
             print("IIIIIIIII", i, "IIIIIIIIIIIII")
+
             i = i +1
         except:
             print("No more projects on page: " + i)
             return
 
-#project_scraper("https://www.hackster.io/contests/arduino-automation-robotics")
-
-#csv_file.close()

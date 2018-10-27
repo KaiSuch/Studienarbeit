@@ -1,4 +1,4 @@
-import xlrd
+xlrdimport
 import contest_scraper as contest
 
 

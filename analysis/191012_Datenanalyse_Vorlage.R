@@ -34,9 +34,6 @@ str(test_data)
 
 # ------------------------ data cleaning -------------------------
 
-
-by_contest <- group_by(final_data_final, Contest)
-
 # group data by contest
 by_contest <- group_by(mydata, Contest)
 by_contest
@@ -134,17 +131,17 @@ m6 <- glm(Winorloose ~ Likes, data=cleaned_data)
 m7 <- glm(Winorloose ~ Kommentare, data=cleaned_data)
 
 # Model 8
-m8 <- glm(Winorloose ~ Anzahl.der.Wörter, data=cleaned_data)
+m8 <- glm(Winorloose ~ Anzahl.der.WÃ¶rter, data=cleaned_data)
 
 # Model 9
 m9 <- glm(Winorloose ~ Anzahl.der.Bilder, data=cleaned_data)
 
 # Model 10
-m10 <- glm(Winorloose ~ Vollständige.Beschreibung, data=cleaned_data)
+m10 <- glm(Winorloose ~ VollstÃ¤ndige.Beschreibung, data=cleaned_data)
 
 # Model 11
 m11 <- glm(Winorloose ~ Schwierigkeitsgrad + Follower + Following + Anzahl.der.Projekte + Views + Likes + Kommentare + 
-            Anzahl.der.Wörter + Anzahl.der.Bilder + Vollständige.Beschreibung, data=cleaned_data)
+            Anzahl.der.WÃ¶rter + Anzahl.der.Bilder + VollstÃ¤ndige.Beschreibung, data=cleaned_data)
 
 
 # ----------------------- creating moderator models ---------------------------
@@ -160,18 +157,18 @@ m13 <- glm(Winorloose ~ Likes + Schwierigkeitsgrad + Schwierigkeitsgrad:Likes, d
 m14 <- glm(Winorloose ~ Kommentare + Schwierigkeitsgrad + Schwierigkeitsgrad:Kommentare, data=cleaned_data)
 
 # Model 15
-m15 <- glm(Winorloose ~ Anzahl.der.Wörter + Schwierigkeitsgrad + Schwierigkeitsgrad:Anzahl.der.Wörter, data=cleaned_data)
+m15 <- glm(Winorloose ~ Anzahl.der.WÃ¶rter + Schwierigkeitsgrad + Schwierigkeitsgrad:Anzahl.der.WÃ¶rter, data=cleaned_data)
 
 # Model 16
 m16 <- glm(Winorloose ~ Anzahl.der.Bilder + Schwierigkeitsgrad + Schwierigkeitsgrad:Anzahl.der.Bilder, data=cleaned_data)
 
 # Model 17
-m17 <- glm(Winorloose ~ Vollständige.Beschreibung + Schwierigkeitsgrad + Schwierigkeitsgrad:Vollständige.Beschreibung, data=cleaned_data)
+m17 <- glm(Winorloose ~ VollstÃ¤ndige.Beschreibung + Schwierigkeitsgrad + Schwierigkeitsgrad:VollstÃ¤ndige.Beschreibung, data=cleaned_data)
 
 # Model 18
-m18 <- glm(Winorloose ~ Follower + Following + Anzahl.der.Projekte + Views + Likes + Kommentare + Anzahl.der.Wörter + Anzahl.der.Bilder + Vollständige.Beschreibung + 
-             Schwierigkeitsgrad + Schwierigkeitsgrad:Views + Schwierigkeitsgrad:Likes + Schwierigkeitsgrad:Kommentare + Schwierigkeitsgrad:Anzahl.der.Wörter + 
-             Schwierigkeitsgrad:Anzahl.der.Bilder + Schwierigkeitsgrad:Vollständige.Beschreibung, data=cleaned_data)
+m18 <- glm(Winorloose ~ Follower + Following + Anzahl.der.Projekte + Views + Likes + Kommentare + Anzahl.der.WÃ¶rter + Anzahl.der.Bilder + VollstÃ¤ndige.Beschreibung + 
+             Schwierigkeitsgrad + Schwierigkeitsgrad:Views + Schwierigkeitsgrad:Likes + Schwierigkeitsgrad:Kommentare + Schwierigkeitsgrad:Anzahl.der.WÃ¶rter + 
+             Schwierigkeitsgrad:Anzahl.der.Bilder + Schwierigkeitsgrad:VollstÃ¤ndige.Beschreibung, data=cleaned_data)
 
 
 
